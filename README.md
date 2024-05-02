@@ -1,5 +1,7 @@
 # Upcrb
 
+[![Build](https://github.com/Adriano3ds/upcrb/actions/workflows/rust.yml/badge.svg)](https://github.com/Adriano3ds/upcrb/actions/workflows/rust.yml)
+
 Pronounced "Up Crab".
 
 Upcrb is a basic Rust implementation of the Python tool [Updog](https://github.com/sc0tfree/updog). Upcrb is a simple server that serves files from the directory in which the executable was ran. 
