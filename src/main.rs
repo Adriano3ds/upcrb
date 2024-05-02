@@ -49,7 +49,9 @@ async fn index(path: web::Path<String>) -> impl Responder {
             html_response.push_str("<!DOCTYPE html><html><head><title>Arquivos no diretório do executável</title></head><body>");
             for entry in &folder_entries {
                 let name = entry.file_name().into_string().expect("Error converting file name to string");
-                html_response.push_str(&format!("<a href=\"{}\">{}</a><br>", name, name));
+                let path = entry.path();
+                let path = path.to_str().unwrap();
+                html_response.push_str(&format!("<a href=\"{}\">{}</a><br>", path, name));
             }
             html_response.push_str("</body></html>");
 
