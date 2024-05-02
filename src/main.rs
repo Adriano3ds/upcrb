@@ -51,7 +51,12 @@ async fn index(path: web::Path<String>) -> impl Responder {
                 let name = entry.file_name().into_string().expect("Error converting file name to string");
                 let path = entry.path();
                 let path = path.to_str().unwrap();
-                html_response.push_str(&format!("<a href=\"{}\">{}</a><br>", path, name));
+                let indicator = match get_path_type(path) {
+                    Ok(PathType::Directory) => "📁",
+                    Ok(PathType::File) => "📄",
+                    Err(_) => "⚠️"
+                };
+                html_response.push_str(&format!("{} <a href=\"{}\">{}</a><br>", indicator, path, name));
             }
             html_response.push_str("</body></html>");
 
