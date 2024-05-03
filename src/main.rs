@@ -1,6 +1,7 @@
 use std::{fs::{self, DirEntry}, io::Read};
 use actix_web::{get, http::header::ContentType, web, App, HttpResponse, HttpServer, Responder};
 use clap::Parser;
+use urlencoding::decode;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -34,6 +35,7 @@ fn get_path_type(path: &str) -> Result<PathType, ()> {
 async fn index(path: web::Path<String>) -> impl Responder {
     let path = path.into_inner();
     let current_entry = "./".to_owned() + &path;
+    let current_entry = decode(current_entry.as_str()).expect("could not decode path").to_string();
     let current_entry = current_entry.as_str();
     return match get_path_type(current_entry) {
         Ok(PathType::Directory) => {
